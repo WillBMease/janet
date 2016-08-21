@@ -21,7 +21,7 @@ app.get('/', function(req, res) {
 io.sockets.on('connection', function (socket) {
 
   socket.on('chat', function(data){
-    io.sockets.emit('chat', function(data))
+    io.sockets.emit('chat', data)
   })
 
 })
