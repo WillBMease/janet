@@ -1,8 +1,25 @@
 <html>
 <head>
 
+  <script src="../socket.io/socket.io.js"></script>
+  <script src="jquery.min.js"></script>
+
 </head>
 <body>
-  janet!!
+  <input class="text" type="text" />
+  <button class="send">send</button>
+
+  <script>
+
+  $('.send').click(function(){
+    socket.emit('chat', $('.text').val())
+  })
+
+  socket.on('chat', function(msg){
+    $('body').append('<div>'+msg+'</div>')
+  })
+
+
+  </script>
 </body>
 </html>
