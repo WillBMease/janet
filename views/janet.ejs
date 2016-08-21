@@ -16,7 +16,27 @@
   $('.send').click(function(){
     socket.emit('chat', $('.text').val())
     setInterval(function(){
-      changeColor()
+      var colors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
+
+      function getColor(){
+        return colors[Math.floor(Math.random() * colors.length)]
+      }
+
+      function getColors(how_many){
+        var temp = '#'
+        for (var i = 0 ; i < how_many ; i++){
+          temp += colors[Math.floor(Math.random() * colors.length)]
+        }
+        return temp
+      }
+
+      function getLocation(){
+        Math.floor(Math.random() * $(window).css('width')
+      }
+
+      var color = getColors(6)
+      socket.emit('color', color)
+      $('body').css('background', color)
     }, 250)
   })
 
@@ -28,29 +48,7 @@
     $('body').css('background', color)
   })
 
-  function changeColor(){
-    var colors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
 
-    function getColor(){
-      return colors[Math.floor(Math.random() * colors.length)]
-    }
-
-    function getColors(how_many){
-      var temp = '#'
-      for (var i = 0 ; i < how_many ; i++){
-        temp += colors[Math.floor(Math.random() * colors.length)]
-      }
-      return temp
-    }
-
-    function getLocation(){
-      Math.floor(Math.random() * $(window).css('width')
-    }
-
-    var color = getColors(6)
-    socket.emit('color', color)
-    $('body').css('background', color)
-  }
 
 
   </script>
