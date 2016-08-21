@@ -26,4 +26,8 @@ io.sockets.on('connection', function (socket) {
     io.sockets.emit('chat', data)
   })
 
+  socket.on('color', function(data){
+    io.sockets.emit('color', data)
+  })
+
 })
