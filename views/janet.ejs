@@ -11,6 +11,8 @@
 
   <script>
 
+  var socket = io()
+
   $('.send').click(function(){
     socket.emit('chat', $('.text').val())
   })
