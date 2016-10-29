@@ -1,49 +1,154 @@
 <html>
 <head>
 
-  <script src="../socket.io/socket.io.js"></script>
+  <!-- <script src="../socket.io/socket.io.js"></script> -->
   <script src="jquery.min.js"></script>
+
+  <style>
+
+  .squid {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: red;
+    z-index: 2;
+  }
+
+  .ink {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: black;
+    transition: all 0.8s ease;
+    z-index: 1;
+    bottom: -40px;
+    border-radius: 30px;
+  }
+
+  </style>
 
 </head>
 <body>
   <input class="text" type="text" />
   <button class="send">send</button>
 
+  <div class="squid"></div>
+
   <script>
 
-  var socket = io()
 
-  $('.send').click(function(){
-    socket.emit('chat', $('.text').val())
-    setInterval(function(){
-      var colors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
+  function collision($div1, $div2) {
+  var x1 = $div1.offset().left;
+  var y1 = $div1.offset().top;
+  var h1 = $div1.outerHeight(true);
+  var w1 = $div1.outerWidth(true);
+  var b1 = y1 + h1;
+  var r1 = x1 + w1;
+  var x2 = $div2.offset().left;
+  var y2 = $div2.offset().top;
+  var h2 = $div2.outerHeight(true);
+  var w2 = $div2.outerWidth(true);
+  var b2 = y2 + h2;
+  var r2 = x2 + w2;
 
-      function getColor(){
-        return colors[Math.floor(Math.random() * colors.length)]
-      }
+  if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
+  return true;
+}
 
-      function getColors(how_many){
-        var temp = '#'
-        for (var i = 0 ; i < how_many ; i++){
-          temp += colors[Math.floor(Math.random() * colors.length)]
-        }
-        return temp
-      }
+var fish_amount = 5
 
 
-      var color = getColors(6)
-      socket.emit('color', color)
-      $('body').css('background', color)
-    }, 250)
-  })
+window.setInterval(function() {
+  for (var i = 1 ; i <= fish_amount ; i++)
+    checkCollision(i)
+}, 200);
 
-  socket.on('chat', function(msg){
-    $('body').append('<div>'+msg+'</div>')
-  })
+function checkCollision(num){
+  for (var i = 1 ; i < num ; i++){
+    if (collision($('.fish'+num), $('.fish'+i))){
+      handleCollision(num)
+    }
+  }
+  for (var i = num+1 ; i <= fish_amount ; i++){
+    if (collision($('.fish'+num), $('.fish'+i))){
+      handleCollision(num)
+    }
+  }
+}
 
-  socket.on('color', function(color){
-    $('body').css('background', color)
-  })
+function handleCollision(num){
+  if (num == 1){
+    squidAction()
+  }
+}
+
+function squidAction(){
+  $('.squid').append('<div class="ink ink1"></div>')
+  setTimeout(function(){
+    $('.ink1').css('bottom', '-200px').css('opacity', '0')
+    setTimeout(function(){
+      $('.squid').append('<div class="ink ink2"></div>')
+      setTimeout(function(){
+        $('.ink2').css('bottom', '-200px').css('opacity', '0')
+        setTimeout(function(){
+          $('.squid').append('<div class="ink ink3"></div>')
+          setTimeout(function(){
+            $('.ink3').css('bottom', '-200px').css('opacity', '0')
+          }, 50)
+        }, 100)
+      }, 50)
+    }, 100)
+  }, 50)
+  setTimeout(function(){
+    $('.ink').remove()
+  }, 1500)
+}
+
+  // var socket = io()
+  //
+  // $('.send').click(function(){
+  //   socket.emit('chat', $('.text').val())
+  //   // setInterval(function(){
+  //   //   var colors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
+  //   //
+  //   //   function getColor(){
+  //   //     return colors[Math.floor(Math.random() * colors.length)]
+  //   //   }
+  //   //
+  //   //   function getColors(how_many){
+  //   //     var temp = '#'
+  //   //     for (var i = 0 ; i < how_many ; i++){
+  //   //       temp += colors[Math.floor(Math.random() * colors.length)]
+  //   //     }
+  //   //     return temp
+  //   //   }
+  //   //
+  //   //
+  //   //   var color = getColors(6)
+  //   //   socket.emit('color', color)
+  //   //   $('body').css('background', color)
+  //   // }, 250)
+  // })
+
+
+
+  // var fishies = []
+  //
+  // var Fish = function(){
+  //   this.speed = Math.round(Math.floor() * 1000) + 150
+  // }
+  //
+  // function defineAttrs(num){
+  //   fishies[num] = new Fish()
+  // }
+
+  // socket.on('chat', function(msg){
+  //   $('body').append('<div>'+msg+'</div>')
+  // })
+
+  // socket.on('color', function(color){
+  //   $('body').css('background', color)
+  // })
 
 
 
