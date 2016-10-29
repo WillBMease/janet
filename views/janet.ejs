@@ -1,18 +1,42 @@
 <html>
 <head>
 
-  <!-- <script src="../socket.io/socket.io.js"></script> -->
-  <script src="jquery.min.js"></script>
+  <script src="../socket.io/socket.io.js"></script>
+  <script src = "js/jquery.min.js"></script>
 
   <style>
 
-  .squid {
+  body {
+    background-image: url(img/underwater.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .janet-block {
     position: absolute;
     width: 100px;
     height: 100px;
-    background: red;
+    border-radius: 100px;
+    transition: all 0.75s ease;
+    background-image: url(http://cbsnews3.cbsistatic.com/hub/i/r/2016/08/17/ec1039a4-f3f1-465d-8d49-dd7ca2d8b33e/thumbnail/620x350/41d1c83b6fdda484ea58db35c8a80a82/squid2.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: visible;
     z-index: 2;
   }
+
+  /*.ink {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: black;
+    transition: all 0.8s ease;
+    z-index: 1;
+    bottom: -40px;
+    border-radius: 30px;
+  }*/
 
   .ink {
     position: absolute;
@@ -20,48 +44,127 @@
     height: 40px;
     background: black;
     transition: all 0.8s ease;
-    z-index: 1;
-    bottom: -40px;
+    bottom: -140px;
     border-radius: 30px;
+    z-index: 1;
+  }
+
+  .fish1 {
+    background-image: url(img/babysquid.png);
+  }
+  .fish2 {
+    background-image: url(img/octopus.png);
+  }
+  .fish3 {
+    background-image: url(img/face.png);
+  }
+  .fish4 {
+    background-image: url(img/puffer.png);
+  }
+  .fish5 {
+    background-image: url(img/cheeks.png);
+  }
+  .fish6 {
+    background-image: url(img/angler.png);
+  }
+  .fish7 {
+    background-image: url(img/cowfish.png);
+  }
+  .fish8 {
+    background-image: url(img/crab.png)
   }
 
   </style>
 
 </head>
 <body>
-  <input class="text" type="text" />
-  <button class="send">send</button>
 
-  <div class="squid"></div>
+  <div class="janet-block fish1"></div>
+  <div class="janet-block fish2"></div>
+  <div class="janet-block fish3"></div>
+  <div class="janet-block fish4"></div>
+  <div class="janet-block fish5"></div>
+  <div class="janet-block fish6"></div>
+  <div class="janet-block fish7"></div>
+  <div class="janet-block fish8"></div>
+
+<script src="js/device.js"></script>
 
   <script>
 
+var socket = io()
+var one = true, fishies = [], fish_amount = 8
 
-  function collision($div1, $div2) {
-  var x1 = $div1.offset().left;
-  var y1 = $div1.offset().top;
-  var h1 = $div1.outerHeight(true);
-  var w1 = $div1.outerWidth(true);
-  var b1 = y1 + h1;
-  var r1 = x1 + w1;
-  var x2 = $div2.offset().left;
-  var y2 = $div2.offset().top;
-  var h2 = $div2.outerHeight(true);
-  var w2 = $div2.outerWidth(true);
-  var b2 = y2 + h2;
-  var r2 = x2 + w2;
+function moveSquid(i){
+  var top = Math.floor(Math.random() * $(window).height())
+  var left = Math.floor(Math.random() * $(window).width())
 
-  if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
-  return true;
+  if (i == 8){
+    $(".fish"+i).css("bottom", '25px').css("left", left)
+  }
+  else {
+      $(".fish"+i).css("top", top).css("left", left)
+  }
+
+  // if (one){
+  //   $('.fish'+i).css('width', '100px').css('height', '100px')
+  // }
+  // else {
+  //   one = true
+  //   $('.fish'+i).css('width', '250px').css('height', '250px')
+  // }
 }
 
-var fish_amount = 5
+var Fish = function(){
+//   this.speed = Math.round(Math.floor() * 1000) + 150
+}
 
+for (var i = 1 ; i <= fish_amount ; i++){
+  speed(i)
+  $('.fish'+i).css('transition', 'all '+fishies[i]+'s ease')
+}
 
-window.setInterval(function() {
-  for (var i = 1 ; i <= fish_amount ; i++)
-    checkCollision(i)
-}, 200);
+function speed(i){
+  fishies[i] = (Math.round(Math.random() * 8000) + 1050) / 1000
+
+  setInterval(function(){
+    moveSquid(i)
+  }, fishies[i]*1000)
+}
+
+for (var i = 1 ; i <= fish_amount ; i++){
+  speed(i)
+  var top = Math.floor(Math.random() * $(window).height())
+  var left = Math.floor(Math.random() * $(window).width())
+  $('.fish'+i).css('top', top+'px').css('left', left+'px')
+  $('.fish'+i).css('transition', 'all '+fishies[i]+'s ease')
+}
+
+function collision($div1, $div2){
+  var x1 = $div1.offset().left
+  var y1 = $div1.offset().top
+  var h1 = $div1.outerHeight(true)
+  var w1 = $div1.outerWidth(true)
+  var b1 = y1 + h1
+  var r1 = x1 + w1
+  var x2 = $div2.offset().left
+  var y2 = $div2.offset().top
+  var h2 = $div2.outerHeight(true)
+  var w2 = $div2.outerWidth(true)
+  var b2 = y2 + h2
+  var r2 = x2 + w2
+
+  if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false
+  return true
+}
+
+setTimeout(function(){
+  setInterval(function(){
+    for (var i = 1 ; i <= 7 ; i++){
+      checkCollision(i)
+    }
+  }, 200)
+}, 2000)
 
 function checkCollision(num){
   for (var i = 1 ; i < num ; i++){
@@ -77,23 +180,45 @@ function checkCollision(num){
 }
 
 function handleCollision(num){
-  if (num == 1){
+  if (num == 2){
     squidAction()
+  }
+  else if (num == 4){
+    $('.fish4').css('width', '500px').css('height', '500px')
+    setTimeout(function(){
+      $('.fish4').css('width', '100px').css('height', '100px')
+    }, 800)
+  }
+  else if (num == 6){
+    $('.fish6').css('transform', 'rotate(270deg)')
+    setTimeout(function(){
+      $('.fish6').css('transform', 'rotate(-270deg)')
+      setTimeout(function(){
+        $('.fish6').css('transform', 'rotate(270deg)')
+        setTimeout(function(){
+          $('.fish6').css('transform', 'rotate(-270deg)')
+          setTimeout(function(){
+            $('.fish6').css('transform', 'rotate(0deg)')
+          }, 400)
+        }, 400)
+      }, 400)
+    }, 400)
   }
 }
 
 function squidAction(){
-  $('.squid').append('<div class="ink ink1"></div>')
+  var top = Number( ($('.fish2').css('top')).replace('px', '') ), left = Number( ($('.fish2').css('left')).replace('px', '') )
+  $('body').append('<div style="top:'+(top+80)+'px;left:'+(left+50)+'px;" class="ink ink1"></div>')
   setTimeout(function(){
-    $('.ink1').css('bottom', '-200px').css('opacity', '0')
+    $('.ink1').css('bottom', (top-200)+'px').css('opacity', '0').css('width', '100px').css('height', '100px').css('border-radius', '100px')
     setTimeout(function(){
-      $('.squid').append('<div class="ink ink2"></div>')
+      $('body').append('<div style="top:'+top+'px;left:'+left+'px;" class="ink ink2"></div>')
       setTimeout(function(){
-        $('.ink2').css('bottom', '-200px').css('opacity', '0')
+        $('.ink2').css('bottom', (top-200)+'px').css('opacity', '0').css('width', '100px').css('height', '100px').css('border-radius', '100px')
         setTimeout(function(){
-          $('.squid').append('<div class="ink ink3"></div>')
+          $('body').append('<div style="top:'+top+'px;left:'+left+'px;" class="ink ink3"></div>')
           setTimeout(function(){
-            $('.ink3').css('bottom', '-200px').css('opacity', '0')
+            $('.ink3').css('bottom', (top-200)+'px').css('opacity', '0').css('width', '100px').css('height', '100px').css('border-radius', '100px')
           }, 50)
         }, 100)
       }, 50)
@@ -103,52 +228,6 @@ function squidAction(){
     $('.ink').remove()
   }, 1500)
 }
-
-  // var socket = io()
-  //
-  // $('.send').click(function(){
-  //   socket.emit('chat', $('.text').val())
-  //   // setInterval(function(){
-  //   //   var colors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
-  //   //
-  //   //   function getColor(){
-  //   //     return colors[Math.floor(Math.random() * colors.length)]
-  //   //   }
-  //   //
-  //   //   function getColors(how_many){
-  //   //     var temp = '#'
-  //   //     for (var i = 0 ; i < how_many ; i++){
-  //   //       temp += colors[Math.floor(Math.random() * colors.length)]
-  //   //     }
-  //   //     return temp
-  //   //   }
-  //   //
-  //   //
-  //   //   var color = getColors(6)
-  //   //   socket.emit('color', color)
-  //   //   $('body').css('background', color)
-  //   // }, 250)
-  // })
-
-
-
-  // var fishies = []
-  //
-  // var Fish = function(){
-  //   this.speed = Math.round(Math.floor() * 1000) + 150
-  // }
-  //
-  // function defineAttrs(num){
-  //   fishies[num] = new Fish()
-  // }
-
-  // socket.on('chat', function(msg){
-  //   $('body').append('<div>'+msg+'</div>')
-  // })
-
-  // socket.on('color', function(color){
-  //   $('body').css('background', color)
-  // })
 
 
 
