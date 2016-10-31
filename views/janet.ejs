@@ -79,6 +79,9 @@
   .fish10 {
     background-image: url(img/tooth.png)
   }
+  .fish11 {
+    background-image: url(img/babyface.png)
+  }
 
   </style>
 
@@ -95,13 +98,14 @@
   <div class="janet-block fish8"></div>
   <div class="janet-block fish9"></div>
   <div class="janet-block fish10"></div>
+  <div class="janet-block fish11"></div>
 
 <script src="js/device.js"></script>
 
   <script>
 
 var socket = io()
-var one = true, fishies = [], fish_amount = 10
+var one = true, fishies = [], fish_amount = 11
 
 function moveSquid(i){
   var top = Math.floor(Math.random() * $(window).height())
