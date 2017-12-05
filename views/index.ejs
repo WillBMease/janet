@@ -1,0 +1,191 @@
+<html>
+<head>
+
+  <title>Janet Turner</title>
+
+  <% include partials/dependencies %>
+
+  <style>
+
+  body {
+    font-family: 'Reenie Beanie', cursive;
+  }
+
+  .rectangle {
+
+  }
+
+  .menu-box-container {
+    padding: 25px;
+  }
+
+  .menu-outline {
+    background: none;
+    border: 1px solid ;
+  }
+
+  .menu-box {
+    width: 100%;
+    height: 300px;
+    background: #f2d079;
+    text-align: center;
+    border: 3px solid #e8d023;
+  }
+
+  .menu-box p {
+    font-size: 65px;
+    color: #e64b32;
+    vertical-align: middle;
+    line-height: 300px;
+  }
+
+  .container {
+    position: relative;
+    border: 8px solid rgba(234, 138, 33, .15);
+    padding: 8px;
+    margin-top: 50px;
+  }
+  .container-inner {
+    background: rgba(234, 138, 33, .15);
+    padding: 50px 25px;
+    height: 90vh;
+    max-height: 700px;
+  }
+
+  .leaf {
+    position: absolute;
+  }
+
+  .leaf-top-left {
+    top: -25px;
+    left: -25px;
+  }
+
+  .leaf-top-right {
+    top: 50px;
+    right: -25px;
+  }
+
+  .leaf-bottom-right {
+    right: -25px;
+    bottom: 50px;
+  }
+
+  .leaf-bottom-left {
+    left: -140px;
+    bottom: -180px;
+  }
+  .gorilla-container-position {
+    position: absolute;
+    bottom: 0px;
+    right: 20%;;
+  }
+  .gorilla-container {
+    position: relative;
+    height: 250px;
+    width: 600px;
+  }
+  .gorilla-container img {
+    position: absolute;
+    width: 100%;
+  }
+  .gorilla-container .text {
+    padding: 15px;
+    color: #825428;
+  }
+  .gorilla-container p {
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+    line-height: 36px;
+  }
+  img.gorilla {
+    position: absolute;
+    width: 335px;
+    bottom: -25px;
+    right: 50px;
+  }
+  .left-chat-container {
+    position: absolute;
+    width: 265px;
+    top: 0;
+    left: 0;
+  }
+  .right-chat-container {
+    position: absolute;
+    width: 205px;
+    top: 0;
+    right: 5px;
+  }
+  </style>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="container-inner">
+    <h1>Janet Turner</h1>
+    <div class="row">
+      <div class="col-md-4 menu-box-container">
+        <a href="/about">
+          <div class="menu-box">
+            <p>
+              About
+            </p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 menu-box-container">
+        <a href="/work">
+          <div class="menu-box">
+            <p>
+              Work
+            </p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 menu-box-container">
+        <a href="/art">
+          <div class="menu-box">
+            <p>
+              Art
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <img class="leaf leaf-top-left" src="images/topleft.png" />
+  <img class="leaf leaf-top-right" src="images/topright.png" />
+  <img class="leaf leaf-bottom-right" src="images/bottomright.png" />
+  <img class="leaf leaf-bottom-left" src="images/bottomleft.png" />
+  <div class="gorilla-container-position">
+    <div class="gorilla-container">
+      <img class="gorilla" src="images/gorilla.png" />
+      <div class="left-chat-container">
+        <img class="left-chat" src="images/lefttalkbubble.svg" />
+        <div class="text">
+          <p>Production</p>
+          <p>Coordinator--</p>
+          <p>Artist--Hot Sauce</p>
+          <p>Connoisseur</p>
+        </div>
+      </div>
+      <div class="right-chat-container">
+        <img class="right-chat" src="images/righttalkbubble.svg" />
+        <div class="text" style="padding-left: 58px;">
+          <p>Welcome</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script>
+
+
+  </script>
+</body>
+</html>

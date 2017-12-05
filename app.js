@@ -10,11 +10,24 @@ http.listen(80, function(){
     console.log('listening on *:80');
 });
 
-
 app.get('/', function(req, res) {
-    res.render('janet', {
+  res.render('index', {});
+});
 
-    });
+app.get('/work', function(req, res) {
+  res.render('work', {});
+});
+
+app.get('/about', function(req, res) {
+  res.render('about', {});
+});
+
+app.get('/art', function(req, res) {
+  res.render('art', {});
+});
+
+app.get('/aquarium', function(req, res) {
+  res.render('janet', {});
 });
 
 
